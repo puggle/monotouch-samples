@@ -6,51 +6,37 @@
 #pragma warning disable 414
 
 using System;
-
 using System.Drawing;
-
 using System.Runtime.CompilerServices;
-
 using System.Runtime.InteropServices;
-
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using MonoTouch;
-
 using MonoTouch.CoreFoundation;
-
 using MonoTouch.CoreMedia;
-
 using MonoTouch.CoreMotion;
-
 using MonoTouch.Foundation;
-
 using MonoTouch.ObjCRuntime;
-
 using MonoTouch.CoreAnimation;
-
 using MonoTouch.CoreLocation;
-
 using MonoTouch.MapKit;
-
 using MonoTouch.UIKit;
-
 using MonoTouch.CoreGraphics;
-
 using MonoTouch.NewsstandKit;
-
 using MonoTouch.GLKit;
-
+using MonoTouch.CoreVideo;
 using OpenTK;
 
 namespace XMBindingLibrarySample {
 	[Register("XMCustomViewDelegate", true)]
 	[Model]
-	public abstract partial class XMCustomViewDelegate : NSObject {
-		
-		static IntPtr class_ptr = Class.GetHandle ("NSObject");
+	public unsafe abstract partial class XMCustomViewDelegate : NSObject {
 		
 		[CompilerGenerated]
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("init")]
-		public  XMCustomViewDelegate () : base (NSObjectFlag.Empty)
+		public XMCustomViewDelegate () : base (NSObjectFlag.Empty)
 		{
 			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
 			if (IsDirectBinding) {
@@ -61,6 +47,7 @@ namespace XMBindingLibrarySample {
 		}
 
 		[CompilerGenerated]
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("initWithCoder:")]
 		public XMCustomViewDelegate (NSCoder coder) : base (NSObjectFlag.Empty)
 		{
@@ -73,10 +60,18 @@ namespace XMBindingLibrarySample {
 		}
 
 		[CompilerGenerated]
-		public XMCustomViewDelegate (NSObjectFlag t) : base (t) {}
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
+		public XMCustomViewDelegate (NSObjectFlag t) : base (t)
+		{
+			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
+		}
 
 		[CompilerGenerated]
-		public XMCustomViewDelegate (IntPtr handle) : base (handle) {}
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
+		public XMCustomViewDelegate (IntPtr handle) : base (handle)
+		{
+			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
+		}
 
 		[Export ("viewWasTouched:")]
 		[CompilerGenerated]

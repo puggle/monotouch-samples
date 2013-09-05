@@ -59,6 +59,9 @@ namespace XMBindingLibrarySample
 
 		[Export("invokeCallback:")]
 		void InvokeCallback(NSString message);
+
+		[Export ("surface:")]
+		NSString Surface (NSObject target_that_contains_a_run_method);
 	}
 	
 	[BaseType(typeof(UIView), Delegates = new string [] {"WeakDelegate"}, Events = new Type[] { (typeof(XMCustomViewDelegate)) })]

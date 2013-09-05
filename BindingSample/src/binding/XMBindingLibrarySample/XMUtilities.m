@@ -71,4 +71,14 @@
 	_callback (message);
 }
 
+static NSString *b;
+-(NSString *) surface:(id<MyDelegate>) target
+{
+    b = 0;
+
+    [target run:^(NSString *result){
+	    b = result;
+	   }];
+    return b;
+}
 @end

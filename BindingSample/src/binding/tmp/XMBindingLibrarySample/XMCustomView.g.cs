@@ -6,57 +6,56 @@
 #pragma warning disable 414
 
 using System;
-
 using System.Drawing;
-
 using System.Runtime.CompilerServices;
-
 using System.Runtime.InteropServices;
-
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using MonoTouch;
-
 using MonoTouch.CoreFoundation;
-
 using MonoTouch.CoreMedia;
-
 using MonoTouch.CoreMotion;
-
 using MonoTouch.Foundation;
-
 using MonoTouch.ObjCRuntime;
-
 using MonoTouch.CoreAnimation;
-
 using MonoTouch.CoreLocation;
-
 using MonoTouch.MapKit;
-
 using MonoTouch.UIKit;
-
 using MonoTouch.CoreGraphics;
-
 using MonoTouch.NewsstandKit;
-
 using MonoTouch.GLKit;
-
+using MonoTouch.CoreVideo;
 using OpenTK;
 
 namespace XMBindingLibrarySample {
 	[Register("XMCustomView", true)]
-	public partial class XMCustomView : MonoTouch.UIKit.UIView {
-		static IntPtr selName = Selector.GetHandle ("name");
-		static IntPtr selSetName_ = Selector.GetHandle ("setName:");
-		static IntPtr selDelegate = Selector.GetHandle ("delegate");
-		static IntPtr selSetDelegate_ = Selector.GetHandle ("setDelegate:");
-		static IntPtr selCustomizeViewWithText_ = Selector.GetHandle ("customizeViewWithText:");
+	public unsafe partial class XMCustomView : global::MonoTouch.UIKit.UIView {
+		[CompilerGenerated]
+		const string selName = "name";
+		static readonly IntPtr selNameHandle = Selector.GetHandle ("name");
+		[CompilerGenerated]
+		const string selSetName_ = "setName:";
+		static readonly IntPtr selSetName_Handle = Selector.GetHandle ("setName:");
+		[CompilerGenerated]
+		const string selDelegate = "delegate";
+		static readonly IntPtr selDelegateHandle = Selector.GetHandle ("delegate");
+		[CompilerGenerated]
+		const string selSetDelegate_ = "setDelegate:";
+		static readonly IntPtr selSetDelegate_Handle = Selector.GetHandle ("setDelegate:");
+		[CompilerGenerated]
+		const string selCustomizeViewWithText_ = "customizeViewWithText:";
+		static readonly IntPtr selCustomizeViewWithText_Handle = Selector.GetHandle ("customizeViewWithText:");
 		
-		static IntPtr class_ptr = Class.GetHandle ("XMCustomView");
+		[CompilerGenerated]
+		static readonly IntPtr class_ptr = Class.GetHandle ("XMCustomView");
 		
 		public override IntPtr ClassHandle { get { return class_ptr; } }
 		
 		[CompilerGenerated]
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("init")]
-		public  XMCustomView () : base (NSObjectFlag.Empty)
+		public XMCustomView () : base (NSObjectFlag.Empty)
 		{
 			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
 			if (IsDirectBinding) {
@@ -67,6 +66,7 @@ namespace XMBindingLibrarySample {
 		}
 
 		[CompilerGenerated]
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("initWithCoder:")]
 		public XMCustomView (NSCoder coder) : base (NSObjectFlag.Empty)
 		{
@@ -79,10 +79,18 @@ namespace XMBindingLibrarySample {
 		}
 
 		[CompilerGenerated]
-		public XMCustomView (NSObjectFlag t) : base (t) {}
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
+		public XMCustomView (NSObjectFlag t) : base (t)
+		{
+			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
+		}
 
 		[CompilerGenerated]
-		public XMCustomView (IntPtr handle) : base (handle) {}
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
+		public XMCustomView (IntPtr handle) : base (handle)
+		{
+			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
+		}
 
 		[Export ("customizeViewWithText:")]
 		[CompilerGenerated]
@@ -90,14 +98,14 @@ namespace XMBindingLibrarySample {
 		{
 			if (message == null)
 				throw new ArgumentNullException ("message");
-			var nsmessage = new NSString (message);
+			var nsmessage = NSString.CreateNative (message);
 			
 			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selCustomizeViewWithText_, nsmessage.Handle);
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selCustomizeViewWithText_Handle, nsmessage);
 			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selCustomizeViewWithText_, nsmessage.Handle);
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selCustomizeViewWithText_Handle, nsmessage);
 			}
-			nsmessage.Dispose ();
+			NSString.ReleaseNative (nsmessage);
 			
 		}
 		
@@ -106,26 +114,27 @@ namespace XMBindingLibrarySample {
 			[Export ("name")]
 			get {
 				if (IsDirectBinding) {
-					return NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selName));
+					return NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selNameHandle));
 				} else {
-					return NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selName));
+					return NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selNameHandle));
 				}
 			}
 			
 			[Export ("setName:")]
 			set {
-				var nsvalue = value == null ? null : new NSString (value);
+				var nsvalue = NSString.CreateNative (value);
 				
 				if (IsDirectBinding) {
-					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetName_, nsvalue == null ? IntPtr.Zero : nsvalue.Handle);
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetName_Handle, nsvalue);
 				} else {
-					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetName_, nsvalue == null ? IntPtr.Zero : nsvalue.Handle);
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetName_Handle, nsvalue);
 				}
-				if (nsvalue != null)
-					nsvalue.Dispose ();
+				NSString.ReleaseNative (nsvalue);
+				
 			}
 		}
 		
+		[CompilerGenerated]
 		object __mt_WeakDelegate_var;
 		[CompilerGenerated]
 		public virtual NSObject WeakDelegate {
@@ -133,9 +142,9 @@ namespace XMBindingLibrarySample {
 			get {
 				NSObject ret;
 				if (IsDirectBinding) {
-					ret = (NSObject) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selDelegate));
+					ret =  Runtime.GetNSObject<NSObject> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selDelegateHandle));
 				} else {
-					ret = (NSObject) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selDelegate));
+					ret =  Runtime.GetNSObject<NSObject> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selDelegateHandle));
 				}
 				MarkDirty ();
 				__mt_WeakDelegate_var = ret;
@@ -145,9 +154,9 @@ namespace XMBindingLibrarySample {
 			[Export ("setDelegate:", ArgumentSemantic.Assign)]
 			set {
 				if (IsDirectBinding) {
-					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetDelegate_, value == null ? IntPtr.Zero : value.Handle);
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetDelegate_Handle, value == null ? IntPtr.Zero : value.Handle);
 				} else {
-					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetDelegate_, value == null ? IntPtr.Zero : value.Handle);
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetDelegate_Handle, value == null ? IntPtr.Zero : value.Handle);
 				}
 				MarkDirty ();
 				__mt_WeakDelegate_var = value;
@@ -156,8 +165,12 @@ namespace XMBindingLibrarySample {
 		
 		[CompilerGenerated]
 		public XMCustomViewDelegate Delegate {
-			get { return WeakDelegate as XMCustomViewDelegate; }
-			set { WeakDelegate = value; }
+			get {
+				return WeakDelegate as XMCustomViewDelegate;
+			}
+			set {
+				WeakDelegate = value;
+			}
 		}
 		
 		//
@@ -174,30 +187,36 @@ namespace XMBindingLibrarySample {
 			return (_XMCustomViewDelegate) del;
 		}
 		
+		#pragma warning disable 672
 		[Register]
-		class _XMCustomViewDelegate : XMBindingLibrarySample.XMCustomViewDelegate { 
+		sealed class _XMCustomViewDelegate : XMBindingLibrarySample.XMCustomViewDelegate { 
 			public _XMCustomViewDelegate () {}
 			
 			internal EventHandler viewWasTouched;
 			[Preserve (Conditional = true)]
-			public override Void ViewWasTouched (XMBindingLibrarySample.XMCustomView view)
+			public override void ViewWasTouched (XMBindingLibrarySample.XMCustomView view)
 			{
-				if (viewWasTouched != null){
-					viewWasTouched (view, EventArgs.Empty);
+				EventHandler handler = viewWasTouched;
+				if (handler != null){
+					handler (view, EventArgs.Empty);
 				}
 			}
 			
 		}
+		#pragma warning restore 672
 		
 		public event EventHandler ViewWasTouched {
 			add { EnsureXMCustomViewDelegate ().viewWasTouched += value; }
 			remove { EnsureXMCustomViewDelegate ().viewWasTouched -= value; }
 		}
 		
+		[CompilerGenerated]
 		protected override void Dispose (bool disposing)
 		{
-			__mt_WeakDelegate_var = null;
 			base.Dispose (disposing);
+			if (Handle == IntPtr.Zero) {
+				__mt_WeakDelegate_var = null;
+			}
 		}
 	} /* class XMCustomView */
 }

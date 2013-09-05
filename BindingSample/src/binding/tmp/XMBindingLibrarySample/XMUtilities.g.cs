@@ -6,58 +6,62 @@
 #pragma warning disable 414
 
 using System;
-
 using System.Drawing;
-
 using System.Runtime.CompilerServices;
-
 using System.Runtime.InteropServices;
-
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using MonoTouch;
-
 using MonoTouch.CoreFoundation;
-
 using MonoTouch.CoreMedia;
-
 using MonoTouch.CoreMotion;
-
 using MonoTouch.Foundation;
-
 using MonoTouch.ObjCRuntime;
-
 using MonoTouch.CoreAnimation;
-
 using MonoTouch.CoreLocation;
-
 using MonoTouch.MapKit;
-
 using MonoTouch.UIKit;
-
 using MonoTouch.CoreGraphics;
-
 using MonoTouch.NewsstandKit;
-
 using MonoTouch.GLKit;
-
+using MonoTouch.CoreVideo;
 using OpenTK;
 
 namespace XMBindingLibrarySample {
 	[Register("XMUtilities", true)]
-	public partial class XMUtilities : NSObject {
-		static IntPtr selEcho_ = Selector.GetHandle ("echo:");
-		static IntPtr selHello_ = Selector.GetHandle ("hello:");
-		static IntPtr selAddAnd_ = Selector.GetHandle ("add:and:");
-		static IntPtr selMultiplyAnd = Selector.GetHandle ("multiply:and");
-		static IntPtr selSetCallback_ = Selector.GetHandle ("setCallback:");
-		static IntPtr selInvokeCallback_ = Selector.GetHandle ("invokeCallback:");
+	public unsafe partial class XMUtilities : NSObject {
+		[CompilerGenerated]
+		const string selEcho_ = "echo:";
+		static readonly IntPtr selEcho_Handle = Selector.GetHandle ("echo:");
+		[CompilerGenerated]
+		const string selHello_ = "hello:";
+		static readonly IntPtr selHello_Handle = Selector.GetHandle ("hello:");
+		[CompilerGenerated]
+		const string selAddAnd_ = "add:and:";
+		static readonly IntPtr selAddAnd_Handle = Selector.GetHandle ("add:and:");
+		[CompilerGenerated]
+		const string selMultiplyAnd = "multiply:and";
+		static readonly IntPtr selMultiplyAndHandle = Selector.GetHandle ("multiply:and");
+		[CompilerGenerated]
+		const string selSetCallback_ = "setCallback:";
+		static readonly IntPtr selSetCallback_Handle = Selector.GetHandle ("setCallback:");
+		[CompilerGenerated]
+		const string selInvokeCallback_ = "invokeCallback:";
+		static readonly IntPtr selInvokeCallback_Handle = Selector.GetHandle ("invokeCallback:");
+		[CompilerGenerated]
+		const string selSurface_ = "surface:";
+		static readonly IntPtr selSurface_Handle = Selector.GetHandle ("surface:");
 		
-		static IntPtr class_ptr = Class.GetHandle ("XMUtilities");
+		[CompilerGenerated]
+		static readonly IntPtr class_ptr = Class.GetHandle ("XMUtilities");
 		
 		public override IntPtr ClassHandle { get { return class_ptr; } }
 		
 		[CompilerGenerated]
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("init")]
-		public  XMUtilities () : base (NSObjectFlag.Empty)
+		public XMUtilities () : base (NSObjectFlag.Empty)
 		{
 			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
 			if (IsDirectBinding) {
@@ -68,6 +72,7 @@ namespace XMBindingLibrarySample {
 		}
 
 		[CompilerGenerated]
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("initWithCoder:")]
 		public XMUtilities (NSCoder coder) : base (NSObjectFlag.Empty)
 		{
@@ -80,10 +85,18 @@ namespace XMBindingLibrarySample {
 		}
 
 		[CompilerGenerated]
-		public XMUtilities (NSObjectFlag t) : base (t) {}
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
+		public XMUtilities (NSObjectFlag t) : base (t)
+		{
+			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
+		}
 
 		[CompilerGenerated]
-		public XMUtilities (IntPtr handle) : base (handle) {}
+		[EditorBrowsable (EditorBrowsableState.Advanced)]
+		public XMUtilities (IntPtr handle) : base (handle)
+		{
+			IsDirectBinding = GetType ().Assembly == global::XMBindingLibrarySample.Messaging.this_assembly;
+		}
 
 		[Export ("echo:")]
 		[CompilerGenerated]
@@ -91,11 +104,11 @@ namespace XMBindingLibrarySample {
 		{
 			if (message == null)
 				throw new ArgumentNullException ("message");
-			var nsmessage = new NSString (message);
+			var nsmessage = NSString.CreateNative (message);
 			
 			string ret;
-			ret = NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (class_ptr, selEcho_, nsmessage.Handle));
-			nsmessage.Dispose ();
+			ret = NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (class_ptr, selEcho_Handle, nsmessage));
+			NSString.ReleaseNative (nsmessage);
 			
 			return ret;
 		}
@@ -106,15 +119,15 @@ namespace XMBindingLibrarySample {
 		{
 			if (name == null)
 				throw new ArgumentNullException ("name");
-			var nsname = new NSString (name);
+			var nsname = NSString.CreateNative (name);
 			
 			string ret;
 			if (IsDirectBinding) {
-				ret = NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (this.Handle, selHello_, nsname.Handle));
+				ret = NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (this.Handle, selHello_Handle, nsname));
 			} else {
-				ret = NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_IntPtr (this.SuperHandle, selHello_, nsname.Handle));
+				ret = NSString.FromHandle (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_IntPtr (this.SuperHandle, selHello_Handle, nsname));
 			}
-			nsname.Dispose ();
+			NSString.ReleaseNative (nsname);
 			
 			return ret;
 		}
@@ -124,9 +137,9 @@ namespace XMBindingLibrarySample {
 		public virtual int Add (int operandUn, int operandDeux)
 		{
 			if (IsDirectBinding) {
-				return XMBindingLibrarySample.Messaging.int_objc_msgSend_int_int (this.Handle, selAddAnd_, operandUn, operandDeux);
+				return XMBindingLibrarySample.Messaging.int_objc_msgSend_int_int (this.Handle, selAddAnd_Handle, operandUn, operandDeux);
 			} else {
-				return XMBindingLibrarySample.Messaging.int_objc_msgSendSuper_int_int (this.SuperHandle, selAddAnd_, operandUn, operandDeux);
+				return XMBindingLibrarySample.Messaging.int_objc_msgSendSuper_int_int (this.SuperHandle, selAddAnd_Handle, operandUn, operandDeux);
 			}
 		}
 		
@@ -135,9 +148,9 @@ namespace XMBindingLibrarySample {
 		public virtual int Multiply (int operandUn, int operandDeux)
 		{
 			if (IsDirectBinding) {
-				return XMBindingLibrarySample.Messaging.int_objc_msgSend_int_int (this.Handle, selMultiplyAnd, operandUn, operandDeux);
+				return XMBindingLibrarySample.Messaging.int_objc_msgSend_int_int (this.Handle, selMultiplyAndHandle, operandUn, operandDeux);
 			} else {
-				return XMBindingLibrarySample.Messaging.int_objc_msgSendSuper_int_int (this.SuperHandle, selMultiplyAnd, operandUn, operandDeux);
+				return XMBindingLibrarySample.Messaging.int_objc_msgSendSuper_int_int (this.SuperHandle, selMultiplyAndHandle, operandUn, operandDeux);
 			}
 		}
 		
@@ -151,12 +164,12 @@ namespace XMBindingLibrarySample {
 			BlockLiteral block_callback;
 			block_callback = new BlockLiteral ();
 			block_ptr_callback = &block_callback;
-			block_callback.SetupBlock (static_InnerXMUtilityCallback, callback);
+			block_callback.SetupBlock (Trampolines.SDXMUtilityCallback.Handler, callback);
 			
 			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetCallback_, (IntPtr) block_ptr_callback);
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetCallback_Handle, (IntPtr) block_ptr_callback);
 			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetCallback_, (IntPtr) block_ptr_callback);
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetCallback_Handle, (IntPtr) block_ptr_callback);
 			}
 			block_ptr_callback->CleanupBlock ();
 			
@@ -169,19 +182,23 @@ namespace XMBindingLibrarySample {
 			if (message == null)
 				throw new ArgumentNullException ("message");
 			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selInvokeCallback_, message.Handle);
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selInvokeCallback_Handle, message.Handle);
 			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selInvokeCallback_, message.Handle);
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selInvokeCallback_Handle, message.Handle);
 			}
 		}
 		
-		internal delegate void InnerXMUtilityCallback (IntPtr block, IntPtr message);
-		static InnerXMUtilityCallback static_InnerXMUtilityCallback = new InnerXMUtilityCallback (TrampolineXMUtilityCallback);
-		[MonoPInvokeCallback (typeof (InnerXMUtilityCallback))]
-		static unsafe void TrampolineXMUtilityCallback (IntPtr block, IntPtr message) {
-			var descriptor = (BlockLiteral *) block;
-			var del = (XMBindingLibrarySample.XMUtilityCallback) (descriptor->global_handle != IntPtr.Zero ? GCHandle.FromIntPtr (descriptor->global_handle).Target : GCHandle.FromIntPtr (descriptor->local_handle).Target);
-			del ((MonoTouch.Foundation.NSString) Runtime.GetNSObject (message));
+		[Export ("surface:")]
+		[CompilerGenerated]
+		public virtual NSString Surface (NSObject target_that_contains_a_run_method)
+		{
+			if (target_that_contains_a_run_method == null)
+				throw new ArgumentNullException ("target_that_contains_a_run_method");
+			if (IsDirectBinding) {
+				return  Runtime.GetNSObject<NSString> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (this.Handle, selSurface_Handle, target_that_contains_a_run_method.Handle));
+			} else {
+				return  Runtime.GetNSObject<NSString> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_IntPtr (this.SuperHandle, selSurface_Handle, target_that_contains_a_run_method.Handle));
+			}
 		}
 		
 	} /* class XMUtilities */

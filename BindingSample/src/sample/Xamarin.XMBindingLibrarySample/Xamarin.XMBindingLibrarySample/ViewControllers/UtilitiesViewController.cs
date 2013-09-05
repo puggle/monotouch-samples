@@ -19,10 +19,25 @@ using MonoTouch.Dialog;
 using MonoTouch.Foundation;
 using XMBindingLibrarySample;
 using MonoTouch.UIKit;
+using MonoTouch.ObjCRuntime;
+using System.Runtime.InteropServices;
 
 namespace Xamarin.XMBindingLibrarySample
 {
-	public class UtilitiesViewController : DialogViewController
+	public class MyDialogViewController : DialogViewController {
+		public MyDialogViewController(RootElement r, bool x)
+			: base(r, x)
+		{
+
+		}
+		[Export ("run:")]
+		public virtual void Run ([BlockProxy (typeof (NIDActionArity1V1))] Action<string> postBack)
+		{
+		}
+
+	}
+
+	public class UtilitiesViewController : MyDialogViewController
 	{
 		XMUtilityCallback callback;
 		XMUtilities Utility;
@@ -57,6 +72,7 @@ namespace Xamarin.XMBindingLibrarySample
 				new StringElement("Multiply", Handle_MultiplyOperation),
 				new StringElement("Hello", Handle_HelloOperation),
 				new StringElement("Invoke Callback", Handle_InvokeCallback),
+				new StringElement("Make Objective-C invoke our C# code with a callback to post a result", PostResultToObjectiveC),
 			};
 			
 			var resultSection = new Section("Result") {
@@ -140,6 +156,70 @@ namespace Xamarin.XMBindingLibrarySample
 				});
 			}
 		}
+
+		// 
+		// This merely invokes a method in Objective-C that will in turn call back into the
+		// Run method below.  This method in turn takes an Action<NSString> which we use
+		// to post back a result
+		//
+		public void PostResultToObjectiveC ()
+		{
+			var result = Utility.Surface (this);
+			SetResultElementValue (result);
+		}
+
+#if false
+		// This method is called back from Objective-C, with a callback to invoke
+		[Export ("run:")]
+		unsafe void Run (IntPtr postBackMethod)
+		{
+
+			Action<string> s = new MonoTouch.Trampolines.NIDActionArity1V1 ((MonoTouch.ObjCRuntime.BlockLiteral *) postBackMethod).Invoke;
+			s ("Hello there");
+		}
+#endif
+		[Export ("run:")]
+		public override void Run (Action<string> postBack)
+		{
+
+			postBack ("Hello there");
+		}
+
 	}
+
+	internal class NIDActionArity1V1 {
+		IntPtr blockPtr;
+		DActionArity1V1 invoker;
+
+		[Preserve (Conditional=true)]
+		public unsafe NIDActionArity1V1 (BlockLiteral *block)
+		{
+			blockPtr = (IntPtr) block;
+			IntPtr x = block->invoke;
+			invoker = (DActionArity1V1) Marshal.GetDelegateForFunctionPointer (block->invoke, typeof (DActionArity1V1));
+		}
+		[Preserve (Conditional=true)]
+		public unsafe static global::System.Action<string> Create (IntPtr block)
+		{
+			Console.WriteLine ("On Create");
+			return new NIDActionArity1V1 ((BlockLiteral *) block).Invoke;
+		}
+
+		[Preserve (Conditional=true)]
+		void Invoke (string obj)
+		{
+			if (obj == null)
+				throw new ArgumentNullException ("obj");
+			var nsobj = NSString.CreateNative (obj);
+
+			invoker (blockPtr, nsobj);
+			NSString.ReleaseNative (nsobj);
+
+		}
+
+
+	} /* class NIDActionArity1V1 */
+	internal delegate void DActionArity1V1 (IntPtr block, IntPtr obj);
+
 }
 
