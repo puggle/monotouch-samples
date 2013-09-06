@@ -11,7 +11,8 @@
 // This is how to define a block function prototype.
 typedef void (^XMUtilityCallback) (NSString *message);
 
-@protocol MyDelegate 
+// This protocol has one method that takes a callback method that users can use to push messages
+@protocol SampleProtocol
 -(void) run:(XMUtilityCallback) arg;
 @end
 
@@ -28,5 +29,5 @@ typedef void (^XMUtilityCallback) (NSString *message);
 -(void) invokeCallback:(NSString *) message;
 
 // This will invoke the method "run:" on the target object with an int argument
--(NSString *) surface:(id<MyDelegate>) target;
+-(NSString *) surface:(id<SampleProtocol>) target;
 @end

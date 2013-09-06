@@ -22,7 +22,7 @@ namespace XMBindingLibrarySample
 	using MonoTouch.UIKit;
 	using MonoTouch.ObjCRuntime;
 
-	public delegate void XMUtilityCallback (NSString message);
+	public delegate void XMUtilityCallback (string message);
 
 	[BaseType (typeof (NSObject))]
 	interface XMUtilities
@@ -61,7 +61,7 @@ namespace XMBindingLibrarySample
 		void InvokeCallback(NSString message);
 
 		[Export ("surface:")]
-		NSString Surface (NSObject target_that_contains_a_run_method);
+		NSString Surface (SampleProtocol target);
 	}
 	
 	[BaseType(typeof(UIView), Delegates = new string [] {"WeakDelegate"}, Events = new Type[] { (typeof(XMCustomViewDelegate)) })]
@@ -81,6 +81,13 @@ namespace XMBindingLibrarySample
 		[Export("customizeViewWithText:")]
 		void CustomizeViewWithText(string message);
 	}
+
+	[Model]
+	[BaseType (typeof(NSObject))]
+	interface SampleProtocol {
+		[Export ("run:"), Abstract]
+		void Run (XMUtilityCallback callback);
+	}
 	
 	[Model]
 	[BaseType(typeof (NSObject))]
@@ -89,7 +96,7 @@ namespace XMBindingLibrarySample
 		// Notice the use of [Abstract] here since the -(void)viewWasTouched:(UIView *)view; method
 		// Was defined using the @required keyword in the native library.
 		[Abstract]
-	    [Export ("viewWasTouched:")]
+		[Export ("viewWasTouched:")]
 		void ViewWasTouched(XMCustomView view);
 	}
 }

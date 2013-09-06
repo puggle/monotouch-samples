@@ -72,7 +72,7 @@ namespace Xamarin.XMBindingLibrarySample
 				new StringElement("Multiply", Handle_MultiplyOperation),
 				new StringElement("Hello", Handle_HelloOperation),
 				new StringElement("Invoke Callback", Handle_InvokeCallback),
-				new StringElement("Make Objective-C invoke our C# code with a callback to post a result", PostResultToObjectiveC),
+				new StringElement("ObjC->C#->ObjC block callback", PostResultToObjectiveC),
 			};
 			
 			var resultSection = new Section("Result") {
@@ -101,7 +101,7 @@ namespace Xamarin.XMBindingLibrarySample
 			base.ViewWillLayoutSubviews();
 		}
 		
-		void OurCallback (NSString message)
+		void OurCallback (string message)
 		{
 			SetResultElementValue(message);
 		}
@@ -164,26 +164,18 @@ namespace Xamarin.XMBindingLibrarySample
 		//
 		public void PostResultToObjectiveC ()
 		{
-			var result = Utility.Surface (this);
+			var myDelegate = new TheDelegate ();
+			var result = Utility.Surface (myDelegate);
 			SetResultElementValue (result);
 		}
 
-#if false
-		// This method is called back from Objective-C, with a callback to invoke
-		[Export ("run:")]
-		unsafe void Run (IntPtr postBackMethod)
-		{
-
-			Action<string> s = new MonoTouch.Trampolines.NIDActionArity1V1 ((MonoTouch.ObjCRuntime.BlockLiteral *) postBackMethod).Invoke;
-			s ("Hello there");
+		class TheDelegate : SampleProtocol {
+			public override void Run (XMUtilityCallback postBack)
+			{
+				postBack ("hello world");
+			}
 		}
-#endif
-		[Export ("run:")]
-		public override void Run (Action<string> postBack)
-		{
 
-			postBack ("Hello there");
-		}
 
 	}
 

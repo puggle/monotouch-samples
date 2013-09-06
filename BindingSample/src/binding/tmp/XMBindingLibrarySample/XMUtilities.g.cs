@@ -156,7 +156,7 @@ namespace XMBindingLibrarySample {
 		
 		[Export ("setCallback:")]
 		[CompilerGenerated]
-		public unsafe virtual void SetCallback (XMUtilityCallback callback)
+		public unsafe virtual void SetCallback ([BlockProxy (typeof (MonoTouch.ObjCRuntime.Trampolines.NIDXMUtilityCallback))]XMUtilityCallback callback)
 		{
 			if (callback == null)
 				throw new ArgumentNullException ("callback");
@@ -190,17 +190,17 @@ namespace XMBindingLibrarySample {
 		
 		[Export ("surface:")]
 		[CompilerGenerated]
-		public virtual NSString Surface (NSObject target_that_contains_a_run_method)
+		public virtual NSString Surface (SampleProtocol target)
 		{
-			if (target_that_contains_a_run_method == null)
-				throw new ArgumentNullException ("target_that_contains_a_run_method");
+			if (target == null)
+				throw new ArgumentNullException ("target");
 			if (IsDirectBinding) {
-				return  Runtime.GetNSObject<NSString> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (this.Handle, selSurface_Handle, target_that_contains_a_run_method.Handle));
+				return  Runtime.GetNSObject<NSString> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (this.Handle, selSurface_Handle, target.Handle));
 			} else {
-				return  Runtime.GetNSObject<NSString> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_IntPtr (this.SuperHandle, selSurface_Handle, target_that_contains_a_run_method.Handle));
+				return  Runtime.GetNSObject<NSString> (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_IntPtr (this.SuperHandle, selSurface_Handle, target.Handle));
 			}
 		}
 		
 	} /* class XMUtilities */
-	public delegate void XMUtilityCallback (NSString message);
+	public delegate void XMUtilityCallback (string message);
 }
